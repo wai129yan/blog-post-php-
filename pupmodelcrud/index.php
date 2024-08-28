@@ -49,15 +49,68 @@ include('includes/header.php'); ?>
 
 
             <div class="card">
-                <div class="card-header">
-                    <h4 class="text-center">php pop-up model crud - 1</h4>
-                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        Insert Data
-                    </button>
-
-
+                <div class="card-header  p-3">
+                    <h4 class="text-center">PHP POP-UP MODEL CRUD-1
+                        <!-- modal code -->
+                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Insert Data
+                        </button>
+                        <h4>
                 </div>
+                <table class="table table-stripped table-bordered table-info">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">EMAIL</th>
+                            <th scope="col">PHONE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        $connection = mysqli_connect("localhost", "root", "", "aprogram");
+
+                        $fetch_query = "SELECT * FROM pop";
+                        $fetch_query_run = mysqli_query($connection, $fetch_query);
+
+                        if (mysqli_num_rows($fetch_query_run) > 0) {
+                            while ($row = mysqli_fetch_array($fetch_query_run)) {
+                                // echo $row['id'];
+                        ?>
+                        <tr>
+
+                            <td>
+                                <?php echo $row['id'] ?></td>
+                            <td>
+                                <?php echo $row['name'] ?></td>
+                            <td>
+                                <?php echo $row['email'] ?></td>
+                            <td>
+                                <?php echo $row['phone'] ?></td>
+
+                            <td>
+                                <a href="" class="btn btn-info btn-sm">View Data</a>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-success btn-sm">Edit Data</a>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-danger btn-sm">Delete Data</a>
+                            </td>
+                        </tr>
+                        <?php
+                            }
+                        } else {
+                            ?>
+                        <tr colspan="4">No Recordd Found</tr>
+                        <?php
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
             </div>
         </div>
         <?php
@@ -65,7 +118,7 @@ include('includes/header.php'); ?>
         if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
             echo $_SESSION['status'];
         ?>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class=" alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Holy guacamole!</strong>
             <?php echo $_SESSION['status']; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
